@@ -62,10 +62,10 @@ resp = SW_API.swGet(domain)
 
 
 if resp.status_code != 200:
-    resp.raise_for_status()
+    #resp.raise_for_status()
     st.error('Error Code : %s'%resp.status_code)
 
-if resp.status_code == 200:
+if resp.status_code in [200,304]:
     result = resp.json()
     st.markdown(
         f"""
@@ -110,8 +110,7 @@ if comp_web_final:
     month = comp_web_final[-1].get('Engagments',{}).get('Month','None')
     year = comp_web_final[-1].get('Engagments',{}).get('Year','None')
     
-    st.text('Below you can see the comparetive analysis for the engagement on the website\
-    for the companies. This data is as of Year %s and Month %s'%(month, year))
+    st.text('Below you can see the comparetive analysis for the engagement on the website for the companies. This data is as of Year %s and Month %s'%(month, year))
     
     comp_engmt = [r['Engagments'] for r in comp_web_final if 'Engagments' in r.keys()]
     comp_names = [r['SiteName'] for r in comp_web_final if 'SiteName' in r.keys()]
