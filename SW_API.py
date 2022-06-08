@@ -4,7 +4,7 @@ import pandas as pd
 import ast
 from functools import lru_cache
     
-AGENT = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.61 Safari/537.36", "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9", "Accept-Language": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7", "Accept-Encoding": "gzip, deflate, br", "DNT": "1", "Connection": "close", "Upgrade-Insecure-Requests": "1", "if-none-match" : 'W/"511-Ah29p4csjh43WYLW/X57SUuszl0"', "sec-ch-ua" : '" Not A;Brand";v="99", "Chromium";v="102", "Google Chrome";v="102"', "upgrade-insecure-requests" : "43"}
+AGENT = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.61 Safari/537.36", "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9", "Accept-Language": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7", "Accept-Encoding": "gzip, deflate, br", "DNT": "1", "Upgrade-Insecure-Requests": "1", "if-none-match" : 'W/"511-Ah29p4csjh43WYLW/X57SUuszl0"', "sec-ch-ua" : '" Not A;Brand";v="99", "Chromium";v="102", "Google Chrome";v="102"', "upgrade-insecure-requests" : "1", "sec-fetch-user" : "?1", "sec-fetch-mode":"navigate","sec-fetch-dest":"document"}
 
 COUNTRY_CODES = pd.read_csv('wikipedia-iso-country-codes.csv')
 
