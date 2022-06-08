@@ -2,11 +2,6 @@ import pandas as pd
 import streamlit as st
 import SW_API
 import matplotlib.pyplot as plt
-from fake_useragent import UserAgent
-
-
-ua = UserAgent()
-AGENT = {'User-Agent':"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:66.0) Gecko/20100101 Firefox/66.0","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "Accept-Language": "en-US,en;q=0.5", "Accept-Encoding": "gzip, deflate", "DNT": "1", "Connection": "close", "Upgrade-Insecure-Requests": "1", 'authority': 'similarweb.com'}
 
 
 ### Sidebar work below ###
@@ -20,7 +15,7 @@ user_perm = st.sidebar.selectbox('Do you have a Similar Web API Key ?',\
 if user_perm[:3] == 'Yes':
     apiKey = st.sidebar.text_input('API KEY - ', '')
     if apiKey != '':
-        perm_res = SW_API.user_cap(apiKey, headers = AGENT)
+        perm_res = SW_API.user_cap(apiKey)
         if isinstance(perm_res, str):
             st.sidebar.error(perm_res)
         else:
@@ -34,7 +29,7 @@ for - (comma seperated complete URLs please)',"https://www.google.com/,https://r
 https://www.zillow.com/,https://freetrade.io/,https://www.amazon.com/")
 
 comp_input = comp_csv.strip().split(',')
-comp_web = [SW_API.swGet(c, headers = AGENT) for c in comp_input]
+comp_web = [SW_API.swGet(c) for c in comp_input]
 comp_stat = ['Good' if r.status_code == 200 else 'Error Code : %s'%r.status_code for r in comp_web]
 comp_web_final = [r.json() for r in comp_web if r.status_code == 200]
 comp_df = pd.DataFrame(zip(comp_input,comp_stat),columns=['URL','Status'])
@@ -62,7 +57,7 @@ Below is the data sourcing tool:
 
 domain = st.text_input('Please enter the domain name of the company you want to review','https://www.m1.com/')
 
-resp = SW_API.swGet(domain, headers = AGENT)
+resp = SW_API.swGet(domain)
 
 
 

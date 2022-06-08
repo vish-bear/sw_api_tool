@@ -2,4 +2,3 @@ pandas
 streamlit
 requests
 matplotlib
-fake_useragent
