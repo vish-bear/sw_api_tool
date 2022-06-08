@@ -14,7 +14,7 @@ def swGet(website, headers):
     domain = '{uri.netloc}'.format(uri=urlparse(website))
     domain = domain.replace("www.", "")
     ENDPOINT = 'https://data.similarweb.com/api/v1/data?domain=' + domain
-    resp = sessions.get(ENDPOINT, headers = headers)
+    resp = session.get(ENDPOINT, headers = headers)
     return resp
     
     
