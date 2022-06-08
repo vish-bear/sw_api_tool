@@ -8,7 +8,7 @@ import ast
 COUNTRY_CODES = pd.read_csv('wikipedia-iso-country-codes.csv')
 
 
-def swGet(website, headers = AGENT):
+def swGet(website, headers):
     ''' Extract the data from the Similar Web API '''
     domain = '{uri.netloc}'.format(uri=urlparse(website))
     domain = domain.replace("www.", "")
@@ -17,10 +17,10 @@ def swGet(website, headers = AGENT):
     return resp
     
     
-def user_cap(api_key, headers = AGENT):
+def user_cap(api_key, headers):
     ''' Show the user capabilities from Similar Web API '''
     ENDPOINT = 'https://api.similarweb.com/user-capabilities?api_key='+api_key
-    resp = get(ENDPOINT, headers = AGENT)
+    resp = get(ENDPOINT, headers = headers)
     if resp.text[:7] == 'invalid':
         return 'Invalid API Key! Please check the key again.'
     else:
