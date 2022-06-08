@@ -110,7 +110,7 @@ if comp_web_final:
     month = comp_web_final[-1].get('Engagments',{}).get('Month','None')
     year = comp_web_final[-1].get('Engagments',{}).get('Year','None')
     
-    st.write('Below you can see the comparetive analysis for the engagement on the website for the companies. This data is as of Year %s and Month %s'%(month, year))
+    st.write('Below you can see the comparetive analysis for the engagement on the website for the companies. This data is as of Year %s and Month %s'%(year, month))
     
     comp_engmt = [r['Engagments'] for r in comp_web_final if 'Engagments' in r.keys()]
     comp_names = [r['SiteName'] for r in comp_web_final if 'SiteName' in r.keys()]
@@ -122,8 +122,20 @@ if comp_web_final:
     engmt_df = engmt_df[['Total Visits','Pages per Visit','Avg Visit Duration (seconds)','Bounce Rate']]
     st.table(engmt_df)
     
+    st.write('Below is the table showing the monthly visits for the company websites. This data is extended for the past 6 months from the latest data')
     
-        
+    comp_visits = [r['EstimatedMonthlyVisits'] for r in comp_web_final if 'EstimatedMonthlyVisits' in r.keys()]
+    visit_df = pd.DataFrame(comp_visits, index = comp_names).T
+    st.table(visit_df)
+    
+    st.write('Below is the graph showing the absolute change in monthly visitors for the company websites')
+    visit_diff = (visit_df - visit_df.shift(axis = 0))
+    st.line_chart(visit_diff)
+    
+    st.write('Below is the graph showing the percentage change in monthly visitors for the company websites')
+    visit_diff_pct = (visit_df - visit_df.shift(axis = 0))*100/visit_df.shift(axis = 0)
+    st.line_chart(visit_diff_pct)
+    
         
         
         
