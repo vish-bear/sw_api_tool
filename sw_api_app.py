@@ -2,6 +2,11 @@ import pandas as pd
 import streamlit as st
 import SW_API
 import matplotlib.pyplot as plt
+from fake_useragent import UserAgent
+
+
+ua = UserAgent()
+AGENT = {'User-Agent':str(ua.chrome)}
 
 
 ### Sidebar work below ###
@@ -15,7 +20,7 @@ user_perm = st.sidebar.selectbox('Do you have a Similar Web API Key ?',\
 if user_perm[:3] == 'Yes':
     apiKey = st.sidebar.text_input('API KEY - ', '')
     if apiKey != '':
-        perm_res = SW_API.user_cap(apiKey)
+        perm_res = SW_API.user_cap(apiKey, headers = AGENT)
         if isintance(perm_res, str):
             st.sidebar.error(perm_res)
         else:
@@ -29,7 +34,7 @@ for - (comma seperated complete URLs please)',"https://www.google.com/,https://r
 https://www.zillow.com/,https://freetrade.io/,https://www.amazon.com/")
 
 comp_input = comp_csv.strip().split(',')
-comp_web = [SW_API.swGet(c) for c in comp_input]
+comp_web = [SW_API.swGet(c, headers = AGENT) for c in comp_input]
 comp_stat = ['Good' if r.status_code == 200 else 'Error Code : %s'%r.status_code for r in comp_web]
 comp_web_final = [r.json() for r in comp_web if r.status_code == 200]
 comp_df = pd.DataFrame(zip(comp_input,comp_stat),columns=['URL','Status'])
@@ -42,22 +47,22 @@ with expander:
 
 """
 # Data Sourcing Tool - Similar Web API
-Welcome to the Similar Web API Sourcing tool. This page is intended to extract information from the Similar Web API to pull down company websites that could make interesting investment targets. The way to surface promising companies as potential investment targets would be to do a comparative analysis based on similar companies. Given the [SW API] (https://docs.api.similarweb.com/) is designed to extract information specific to a domain, this tool is designed to pull information from individual domain names. You have the option to use the free data from the SW API or enter your API key to show the current capabilities. Future versions of this tool would scale depending on the license and user capabilities.
+Welcome to the Similar Web API Sourcing tool. This page is intended to extract information from the Similar Web API to pull down company websites that could make interesting investment targets. The way to surface promising companies as potential investment targets would be to do a comparative analysis based on similar companies. Given the [SW API](https://docs.api.similarweb.com/) is designed to extract information specific to a domain, this tool is designed to pull information from individual domain names. You have the option to use the free data from the SW API or enter your API key to show the current capabilities. Future versions of this tool would scale depending on the license and user capabilities.
 
 Please enter the api key information and a collection of company domain names on your left. The company websites have to be comma separated and would be used to compare the growth in estimated monthly visits for the last 6 months. We will also do a comparative analysis on the web engagements. As a use case we can dump multiple private and public company information in the text area on the left and based on the monthly visit growth we can surface investment opportunities. 
 
-The tool below is designed to study a company and its performance through its website analytics. You can enter the domain name below and it will show the title, description and category for the company. Next we will show the traffic shares for the top 5 countries. This will be followed by the website ranking for the company - Global Rank, Country Rank and Category Rank. We also represent the source of the traffic through a pie chart.
+The tool below is designed to study a company and its performance through its website analytics. You can enter the domain name below and it will show the title, description and category for the company. Next it will show the traffic shares for the top 5 countries. This will be followed by the website ranking for the company - Global Rank, Country Rank and Category Rank. We also represent the source of the traffic through a pie chart.
 
 For comparative analysis we will show the engagement metrics for the company along with the ones listed on the left pane. This will be followed by a graph showing the growth in monthly visits for the past six months for the domains listed. This should make the tool well rounded as a data sourcing tool. 
 
-If you have any questions about the tool, reach out to me at <vishal.tripathi@berkeley.edu> or through [LinkedIn] (https://www.linkedin.com/in/vtripathi30/). Alternatively see the source code on github through the dropdown on the right. 
+If you have any questions about the tool, reach out to me at <vishal.tripathi@berkeley.edu> or through [LinkedIn](https://www.linkedin.com/in/vtripathi30/). Alternatively see the source code on github through the dropdown on the right. 
 Below is the data sourcing tool:
 
 """
 
 domain = st.text_input('Please enter the domain name of the company you want to review','https://www.m1.com/')
 
-resp = SW_API.swGet(domain)
+resp = SW_API.swGet(domain, headers = AGENT)
 
 if resp.status_code != 200:
     st.error('Error Code : %s'%resp.status_code)

@@ -17,7 +17,7 @@ def swGet(website, headers = AGENT):
     return resp
     
     
-def user_cap(api_key):
+def user_cap(api_key, headers = AGENT):
     ''' Show the user capabilities from Similar Web API '''
     ENDPOINT = 'https://api.similarweb.com/user-capabilities?api_key='+api_key
     resp = get(ENDPOINT, headers = AGENT)
