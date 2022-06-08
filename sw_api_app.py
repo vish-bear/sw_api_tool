@@ -6,7 +6,7 @@ from fake_useragent import UserAgent
 
 
 ua = UserAgent()
-AGENT = {'User-Agent':str(ua.chrome)}
+AGENT = {'User-Agent':str(ua.chrome),"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "Accept-Language": "en-US,en;q=0.5", "Accept-Encoding": "gzip, deflate", "DNT": "1", "Connection": "close", "Upgrade-Insecure-Requests": "1"}
 
 
 ### Sidebar work below ###
@@ -21,7 +21,7 @@ if user_perm[:3] == 'Yes':
     apiKey = st.sidebar.text_input('API KEY - ', '')
     if apiKey != '':
         perm_res = SW_API.user_cap(apiKey, headers = AGENT)
-        if isintance(perm_res, str):
+        if isinstance(perm_res, str):
             st.sidebar.error(perm_res)
         else:
             st.sidebar.dataframe(perm_res)

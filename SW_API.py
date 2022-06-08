@@ -21,7 +21,7 @@ def user_cap(api_key, headers = AGENT):
     ''' Show the user capabilities from Similar Web API '''
     ENDPOINT = 'https://api.similarweb.com/user-capabilities?api_key='+api_key
     resp = get(ENDPOINT, headers = AGENT)
-    if resp.text[:8] == 'invalid':
+    if resp.text[:7] == 'invalid':
         return 'Invalid API Key! Please check the key again.'
     else:
         res = pd.DataFrame(ast.literal_eval(resp.text).items(), columns = ['Type','User Capabilities'])
