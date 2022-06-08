@@ -1,4 +1,4 @@
-from requests import get
+from requests import get, Session
 from urllib.parse import urlparse
 import pandas as pd
 import ast
@@ -10,8 +10,7 @@ COUNTRY_CODES = pd.read_csv('wikipedia-iso-country-codes.csv')
 
 def swGet(website, headers):
     ''' Extract the data from the Similar Web API '''
-    import requests
-    session = requests.Session()
+    session = Session()
     domain = '{uri.netloc}'.format(uri=urlparse(website))
     domain = domain.replace("www.", "")
     ENDPOINT = 'https://data.similarweb.com/api/v1/data?domain=' + domain
