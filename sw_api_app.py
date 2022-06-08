@@ -55,7 +55,7 @@ Below is the data sourcing tool:
 
 """
 
-domain = st.text_input('Please enter the domain name of the company you want to review','https://www.m1.com/')
+domain = st.text_input('Please enter the domain name of the company you want to review','https://www.wayflyer.com/')
 
 resp = SW_API.swGet(domain)
 
@@ -65,7 +65,7 @@ if resp.status_code != 200:
     #resp.raise_for_status()
     st.error('Error Code : %s'%resp.status_code)
 
-if resp.status_code in [200,304]:
+if resp.status_code == 200:
     result = resp.json()
     st.markdown(
         f"""
@@ -96,7 +96,7 @@ if resp.status_code in [200,304]:
         fig1, ax1 = plt.subplots()
         ax1.pie(traf.values(), autopct='%1.1f%%', radius = 3,
                 shadow=True, startangle=90, pctdistance = 1.2)
-        ax1.legend(traf.keys(), bbox_to_anchor=(0.9, 0.9))
+        ax1.legend(traf.keys(), bbox_to_anchor=(1, 1))
         ax1.axis('equal')
         st.pyplot(fig1)
         
@@ -110,7 +110,7 @@ if comp_web_final:
     month = comp_web_final[-1].get('Engagments',{}).get('Month','None')
     year = comp_web_final[-1].get('Engagments',{}).get('Year','None')
     
-    st.text('Below you can see the comparetive analysis for the engagement on the website for the companies. This data is as of Year %s and Month %s'%(month, year))
+    st.write('Below you can see the comparetive analysis for the engagement on the website for the companies. This data is as of Year %s and Month %s'%(month, year))
     
     comp_engmt = [r['Engagments'] for r in comp_web_final if 'Engagments' in r.keys()]
     comp_names = [r['SiteName'] for r in comp_web_final if 'SiteName' in r.keys()]
@@ -120,7 +120,7 @@ if comp_web_final:
     engmt_df['Avg Visit Duration (seconds)'] = engmt_df['TimeOnSite'].astype(float).astype(int)
     engmt_df['Bounce Rate'] = engmt_df.apply(lambda row: str(float(row['BounceRate'])*100)[:5]+"%", axis = 1)
     engmt_df = engmt_df[['Total Visits','Pages per Visit','Avg Visit Duration (seconds)','Bounce Rate']]
-    st.dataframe(engmt_df)
+    st.table(engmt_df)
     
     
         
