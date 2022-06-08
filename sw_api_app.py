@@ -121,7 +121,7 @@ if comp_web_final:
     engmt_df['Avg Visit Duration (seconds)'] = engmt_df['TimeOnSite'].astype(float).astype(int)
     engmt_df['Bounce Rate'] = engmt_df.apply(lambda row: str(float(row['BounceRate'])*100)[:5]+"%", axis = 1)
     engmt_df = engmt_df[['Total Visits','Pages per Visit','Avg Visit Duration (seconds)','Bounce Rate']]
-    st.dataframe(country_df)
+    st.dataframe(engmt_df)
     
     
         
