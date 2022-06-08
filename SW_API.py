@@ -10,6 +10,7 @@ COUNTRY_CODES = pd.read_csv('wikipedia-iso-country-codes.csv')
 
 def swGet(website, headers):
     ''' Extract the data from the Similar Web API '''
+    import requests
     session = requests.Session()
     domain = '{uri.netloc}'.format(uri=urlparse(website))
     domain = domain.replace("www.", "")
