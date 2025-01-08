@@ -25,8 +25,8 @@ if user_perm[:3] == 'Yes':
 st.sidebar.subheader('Comparetive Analysis : ')
 
 comp_csv = st.sidebar.text_area('Please enter websites of companies you want a comparetive analysis \
-for - (comma seperated complete URLs please)',"https://chat.openai.com/,https://www.claude.ai/,\
-https://www.tome.app/,https://perplexity.ai/,https://www.runwayml.com/")
+for - (comma seperated complete URLs please)',"https://perplexity.ai/,https://suno.com/,https://www.claude.ai/,\
+https://www.tome.app/,https://www.runwayml.com/")
 
 comp_input = comp_csv.strip().split(',')
 comp_web = [SW_API.swGet(c) for c in comp_input]
