@@ -25,8 +25,8 @@ if user_perm[:3] == 'Yes':
 st.sidebar.subheader('Comparetive Analysis : ')
 
 comp_csv = st.sidebar.text_area('Please enter websites of companies you want a comparetive analysis \
-for - (comma seperated complete URLs please)',"https://www.google.com/,https://reddit.com/,\
-https://www.zillow.com/,https://freetrade.io/,https://www.amazon.com/")
+for - (comma seperated complete URLs please)',"https://chat.openai.com/,https://www.claude.ai/,\
+https://www.tome.app/,https://perplexity.ai/,https://www.runwayml.com/")
 
 comp_input = comp_csv.strip().split(',')
 comp_web = [SW_API.swGet(c) for c in comp_input]
@@ -50,12 +50,12 @@ The tool below is designed to study a company and its performance through its we
 
 For comparative analysis we will show the engagement metrics for the company along with the ones listed on the left pane. This will be followed by a graph showing the growth in monthly visits for the past six months for the domains listed. This should make the tool well rounded as a data sourcing tool. 
 
-If you have any questions about the tool, reach out to me at <vishal.tripathi@berkeley.edu> or through [LinkedIn](https://www.linkedin.com/in/vtripathi30/). Alternatively see the source code on github through the dropdown on the right. 
+If you have any questions about the tool, reach out to me at <vishal.tripathi@berkeley.edu> or through [LinkedIn](https://www.linkedin.com/in/vtripathi30/). Also happy to share the source code : shoot me an email and I'll send the GitHub link. 
 Below is the data sourcing tool:
 
 """
 
-domain = st.text_input('Please enter the domain name of the company you want to review','https://www.wayflyer.com/')
+domain = st.text_input('Please enter the domain name of the company you want to review','https://www.harvey.ai/')
 
 resp = SW_API.swGet(domain)
 
