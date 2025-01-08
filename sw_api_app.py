@@ -120,12 +120,14 @@ if comp_web_final:
     engmt_df['Avg Visit Duration (seconds)'] = engmt_df['TimeOnSite'].astype(float).astype(int)
     engmt_df['Bounce Rate'] = engmt_df.apply(lambda row: str(float(row['BounceRate'])*100)[:5]+"%", axis = 1)
     engmt_df = engmt_df[['Total Visits','Pages per Visit','Avg Visit Duration (seconds)','Bounce Rate']]
+    engmt_df = engmt_df.style.format('{:,}')
     st.table(engmt_df)
     
     st.write('Below is the table showing the monthly visits for the company websites. This data is extended for the past 6 months from the latest data')
     
     comp_visits = [r['EstimatedMonthlyVisits'] for r in comp_web_final if 'EstimatedMonthlyVisits' in r.keys()]
     visit_df = pd.DataFrame(comp_visits, index = comp_names).T
+    visit_df = visit_df.style.format('{:,}')
     st.table(visit_df)
     
     st.write('Below is the graph showing the absolute change in monthly visitors for the company websites')
